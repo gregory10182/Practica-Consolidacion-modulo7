@@ -1,20 +1,37 @@
-module.exports = (sequelize, DataTypes) => {
-  const Bootcamp = sequelize.define("bootcamps", {
+export default (sequelize, DataTypes) => {
+  const Bootcamp = sequelize.define("bootcamp", {
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "El campo nombre (title) es requerido",
+        },
+      },
     },
     cue: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       validate: {
+        notEmpty: {
+          args: true,
+          msg: "Números de CUE es necesario, minimo 5 y máximo 20",
+        },
+        isInt: {
+          args: true,
+          msg: "Debes introducir un número entero",
+        },
+        max: 20,
         min: 5,
-        max: 20
-      }
+      },
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Se debe introducir una descripción",
+        },
+      },
     },
   });
 

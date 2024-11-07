@@ -1,19 +1,47 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const User = sequelize.define("users", {
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "El Campo del nombre es requerido",
+        },
+      },
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "El Campo del apellido es requerido",
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
-      isUnique: true,
-      allowNull: false,
       validate: {
-        isEmail: true,
+        notEmpty: {
+          args: true,
+          msg: "el correo electronico es requerido",
+        },
+        isEmail: {
+          args: true,
+          msg: "Formato de correo invalido",
+        },
+      },
+      unique: {
+        args: true,
+        msg: "correo electronico actualmente registrado en la base de datos!",
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "la contraseña es requerida",
+        },
       },
     },
   });
